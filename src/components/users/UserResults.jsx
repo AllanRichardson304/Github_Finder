@@ -10,7 +10,7 @@ export default function UserResults() {
   }, [])
 
   const fetchUsers = async () => {
-    const response = await fetch(`${process.env.REACT_APP_GITHUB_URL}/  `, {
+    const response = await fetch(`${process.env.REACT_APP_GITHUB_URL}/users`, {
       headers: {
         Authoirzation: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
       },
