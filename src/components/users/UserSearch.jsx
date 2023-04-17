@@ -2,7 +2,7 @@ import { useState, useContext } from "react"
 import GithubContext from "../../context/github/githubContext"
 export default function UserSearch() {
     const [text, setText] = useState('')
-    const {users, searchUser} = useContext(GithubContext)
+    const {users, searchUser,clearUsers} = useContext(GithubContext)
     const handleChange = (e) => setText(e.target.value)
     const handleSubmit = (e) =>{
      e.preventDefault()
@@ -27,7 +27,7 @@ export default function UserSearch() {
         </form>
       </div>
       {users.length > 0 && (  <div>
-        <button className="btn btn-ghost btn-lg">Clear</button>
+        <button onClick={clearUsers} className="btn btn-ghost btn-lg">Clear</button>
       </div>)}
     
     </div>
