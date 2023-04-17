@@ -23,7 +23,7 @@ export const GithubProvider = ({ children }) => {
     // const params = new URLSearchParams({
     //   q:text
     // })
-    const response = await fetch('https://api.github.com/search/users?q=brad', {
+    const response = await fetch('https://api.github.com/search/users?q=f', {
       headers: {
         Authorization: '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',
       },
