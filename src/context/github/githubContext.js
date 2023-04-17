@@ -8,6 +8,7 @@ const GithubContext = createContext()
 export const GithubProvider = ({ children }) => {
   const intialState = {
     users: [],
+    user:{},
     loading: false
     
   }
@@ -20,10 +21,10 @@ export const GithubProvider = ({ children }) => {
   // const [loading, setLoading] = useState(true);
   const searchUser = async (text) => {
     setLoading()
-    // const params = new URLSearchParams({
-    //   q:text
-    // })
-    const response = await fetch('https://api.github.com/search/users?q=f', {
+    const params = new URLSearchParams({
+      q:text
+    })
+    const response = await fetch(`https://api.github.com/search/users?${params}`, {
       headers: {
         Authorization: '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',
       },
@@ -37,11 +38,31 @@ export const GithubProvider = ({ children }) => {
     })
 
   };
+// Single User
+  const getUser = async (login) => {
+    setLoading()
+    // const response = await fetch('https://api.github.com/users', {
+          const response = await fetch(`https://api.github.com/users/${login}`, {
+      headers: {
+        Authorization: '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',
+      },
+    });
+    if(response.status === 404){
+    window.location ='/notfound'
+    }else{
+      const data = await response.json();
+      dispatch({
+        type: 'GET_USER',
+        payload: data 
+      })
+    }
+  };
 
   return <GithubContext.Provider value={{
    users: state.users,
+   user:state.user,
    loading: state.loading,
-   searchUser,clearUsers, }}>
+   searchUser,clearUsers,getUser, }}>
     {children}
   </GithubContext.Provider>
 }
